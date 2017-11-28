@@ -1,6 +1,6 @@
 import React from 'react';
 // import { connect } from 'dva';
-import { Layout, Menu, Icon, Button } from 'antd';
+import { Layout, Menu, Icon, Button, BackTop, Card } from 'antd';
 import { Link } from 'dva/router';
 import styles from './BasicLayout.less';
 
@@ -39,6 +39,9 @@ class BasicLayout extends React.Component {
               <h1>Ant Design Pro</h1>
             </Link>
           </div>
+          <Button type="primary" onClick={this.toggleCollapsed} style={{ marginBottom: 10 }}>
+            <Icon type={this.state.collapsed ? 'menu-unfold' : 'menu-fold'} />
+          </Button>
           <Menu
             defaultSelectedKeys={['1']}
             // defaultOpenKeys={['sub1']}
@@ -46,20 +49,17 @@ class BasicLayout extends React.Component {
             theme="dark"
             inlineCollapsed={this.state.collapsed}
           >
-            <Button type="primary" onClick={this.toggleCollapsed} style={{ marginBottom: 16 }}>
-              <Icon type={this.state.collapsed ? 'menu-unfold' : 'menu-fold'} />
-            </Button>
             <Menu.Item key="1">
-              <Icon type="pie-chart" />
-              <span>Option 1</span>
+              <Icon type="home" />
+              <span>首页</span>
             </Menu.Item>
             <Menu.Item key="2">
               <Icon type="desktop" />
-              <span>Option 2</span>
+              <span>我的博客</span>
             </Menu.Item>
             <Menu.Item key="3">
-              <Icon type="inbox" />
-              <span>Option 3</span>
+              <Icon type="github" />
+              <span>Github</span>
             </Menu.Item>
             <SubMenu key="sub1" title={<span><Icon type="mail" /><span>Navigation One</span></span>}>
               <Menu.Item key="5">Option 5</Menu.Item>
@@ -78,14 +78,21 @@ class BasicLayout extends React.Component {
           </Menu>
         </Sider>
         <Layout>
-          <Header>Header</Header>
+          <Header>
+            Header
+          </Header>
           <Content>
-            {/* <Card style={{ minHeight: '900px' }}>
+            <Card style={{ minHeight: '900px' }}>
             Card
-            </Card> */}
+              <BackTop />
+            </Card>
           content
           </Content>
-          <Footer>Footer</Footer>
+          <Footer>
+            <div>
+              Copyright <Icon type="smile-o" /> 2017 Design By Chengjifeng
+            </div>
+          </Footer>
         </Layout>
       </Layout>
     );
