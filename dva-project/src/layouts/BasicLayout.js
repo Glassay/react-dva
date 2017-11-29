@@ -1,6 +1,7 @@
 import React from 'react';
 // import { connect } from 'dva';
-import { Layout, Menu, Icon, Button, BackTop, Card } from 'antd';
+import QueueAnim from 'rc-queue-anim';
+import { Layout, Menu, Icon, Card } from 'antd';
 import { Link } from 'dva/router';
 import styles from './BasicLayout.less';
 
@@ -11,7 +12,6 @@ const SubMenu = Menu.SubMenu;
 // function handleClick(e) {
 //   console.log('click', e);
 // }
-
 
 class BasicLayout extends React.Component {
   state = {
@@ -27,6 +27,7 @@ class BasicLayout extends React.Component {
       <Layout style={{ minHeight: '100vh' }}>
         <Sider
           trigger={null}
+          collapsed={this.state.collapsed}
           collapsible
           breakpoint="md"
           onCollapse={this.onCollapse}
@@ -39,9 +40,6 @@ class BasicLayout extends React.Component {
               <h1>Ant Design Pro</h1>
             </Link>
           </div>
-          <Button type="primary" onClick={this.toggleCollapsed} style={{ marginBottom: 10 }}>
-            <Icon type={this.state.collapsed ? 'menu-unfold' : 'menu-fold'} />
-          </Button>
           <Menu
             defaultSelectedKeys={['1']}
             // defaultOpenKeys={['sub1']}
@@ -78,18 +76,29 @@ class BasicLayout extends React.Component {
           </Menu>
         </Sider>
         <Layout>
-          <Header>
+          <Header className={styles.header}>
+            <Icon
+              className={styles.trigger}
+              type={this.state.collapsed ? 'menu-unfold' : 'menu-fold'}
+              onClick={this.toggleCollapsed}
+            />
             Header
           </Header>
           <Content>
             <Card style={{ minHeight: '900px' }}>
+              <QueueAnim delay={300} className="queue-simple">
+                <div key="a">依次进场</div>
+                <div key="b">依次进场</div>
+                <div key="c">依次进场</div>
+                <div key="d">依次进场</div>
+              </QueueAnim>
             Card
-              <BackTop />
             </Card>
           content
           </Content>
           <Footer>
-            <div>
+            footer
+            <div className={styles.copyright}>
               Copyright <Icon type="smile-o" /> 2017 Design By Chengjifeng
             </div>
           </Footer>
