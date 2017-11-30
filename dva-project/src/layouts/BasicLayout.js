@@ -1,7 +1,9 @@
 import React from 'react';
 // import { connect } from 'dva';
+import classNames from 'classnames';
 import QueueAnim from 'rc-queue-anim';
-import { Layout, Menu, Icon, Card } from 'antd';
+import { ContainerQuery } from 'react-container-query';
+import { Layout, Menu, Icon, Card, Spin } from 'antd';
 import { Link } from 'dva/router';
 import styles from './BasicLayout.less';
 
@@ -13,6 +15,27 @@ const SubMenu = Menu.SubMenu;
 //   console.log('click', e);
 // }
 
+const query = {
+  'screen-xs': {
+    maxWidth: 575,
+  },
+  'screen-sm': {
+    minWidth: 576,
+    maxWidth: 767,
+  },
+  'screen-md': {
+    minWidth: 768,
+    maxWidth: 991,
+  },
+  'screen-lg': {
+    minWidth: 992,
+    maxWidth: 1199,
+  },
+  'screen-xl': {
+    minWidth: 1200,
+  },
+};
+
 class BasicLayout extends React.Component {
   state = {
     collapsed: false,
@@ -23,7 +46,7 @@ class BasicLayout extends React.Component {
     });
   }
   render() {
-    return (
+    const layout = (
       <Layout style={{ minHeight: '100vh' }}>
         <Sider
           trigger={null}
@@ -85,6 +108,7 @@ class BasicLayout extends React.Component {
             Header
           </Header>
           <Content>
+            <Spin size="large" />
             <Card style={{ minHeight: '900px' }}>
               <QueueAnim delay={300} className="queue-simple">
                 <div key="a">依次进场</div>
@@ -104,6 +128,11 @@ class BasicLayout extends React.Component {
           </Footer>
         </Layout>
       </Layout>
+    );
+    return (
+      <ContainerQuery query={query}>
+        {params => <div className={classNames(params)}>{layout}</div>}
+      </ContainerQuery>
     );
   }
 }
