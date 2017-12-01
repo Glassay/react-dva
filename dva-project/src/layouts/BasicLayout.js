@@ -3,7 +3,7 @@ import React from 'react';
 import classNames from 'classnames';
 import QueueAnim from 'rc-queue-anim';
 import { ContainerQuery } from 'react-container-query';
-import { Layout, Menu, Icon, Card, Spin } from 'antd';
+import { Layout, Menu, Icon, Card } from 'antd';
 import { Link } from 'dva/router';
 import styles from './BasicLayout.less';
 
@@ -45,6 +45,7 @@ class BasicLayout extends React.Component {
       collapsed: !this.state.collapsed,
     });
   }
+
   render() {
     const layout = (
       <Layout style={{ minHeight: '100vh' }}>
@@ -71,8 +72,10 @@ class BasicLayout extends React.Component {
             inlineCollapsed={this.state.collapsed}
           >
             <Menu.Item key="1">
-              <Icon type="home" />
-              <span>首页</span>
+              <Link to="/">
+                <Icon type="home" />
+                <span>首页</span>
+              </Link>
             </Menu.Item>
             <Menu.Item key="2">
               <Icon type="desktop" />
@@ -108,7 +111,6 @@ class BasicLayout extends React.Component {
             Header
           </Header>
           <Content>
-            <Spin size="large" />
             <Card style={{ minHeight: '900px' }}>
               <QueueAnim delay={300} className="queue-simple">
                 <div key="a">依次进场</div>
