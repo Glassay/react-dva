@@ -3,8 +3,8 @@ import React from 'react';
 import classNames from 'classnames';
 import QueueAnim from 'rc-queue-anim';
 import { ContainerQuery } from 'react-container-query';
-import { Layout, Menu, Icon, Card } from 'antd';
-import { Link } from 'dva/router';
+import { Layout, Menu, Icon, Card, Affix, Button } from 'antd';
+import { Link, Switch, Route } from 'dva/router';
 import styles from './BasicLayout.less';
 
 const { Header, Footer, Sider, Content } = Layout;
@@ -72,7 +72,7 @@ class BasicLayout extends React.Component {
             inlineCollapsed={this.state.collapsed}
           >
             <Menu.Item key="1">
-              <Link to="/">
+              <Link to="/home">
                 <Icon type="home" />
                 <span>首页</span>
               </Link>
@@ -82,8 +82,10 @@ class BasicLayout extends React.Component {
               <span>我的博客</span>
             </Menu.Item>
             <Menu.Item key="3">
-              <Icon type="github" />
-              <span>Github</span>
+              <Link to="github">
+                <Icon type="github" />
+                <span>Github</span>
+              </Link>
             </Menu.Item>
             <SubMenu key="sub1" title={<span><Icon type="mail" /><span>Navigation One</span></span>}>
               <Menu.Item key="5">Option 5</Menu.Item>
@@ -110,13 +112,17 @@ class BasicLayout extends React.Component {
             />
             Header
           </Header>
-          <Content>
+          <Content id="affix">
             <Card style={{ minHeight: '900px' }}>
-              <QueueAnim delay={300} className="queue-simple">
-                <div key="a">依次进场</div>
-                <div key="b">依次进场</div>
-                <div key="c">依次进场</div>
-                <div key="d">依次进场</div>
+              <Switch>
+                <Route path="/home" render={() => <h1>home</h1>} />
+                <Route path="/github" render={() => <h1>github</h1>} />
+              </Switch>
+              <QueueAnim delay={300}>
+                <div className={styles.content_Card} key="a">依次进场</div>
+                <div className={styles.content_Card} key="b">依次进场</div>
+                <div className={styles.content_Card} key="c">依次进场</div>
+                <div className={styles.content_Card} key="d">依次进场</div>
               </QueueAnim>
             Card
             </Card>
@@ -128,6 +134,11 @@ class BasicLayout extends React.Component {
               Copyright <Icon type="smile-o" /> 2017 Design By Chengjifeng
             </div>
           </Footer>
+          <Affix offsetBottom={10}>
+            <Button type="primary">
+            TOP
+            </Button>
+          </Affix>
         </Layout>
       </Layout>
     );
