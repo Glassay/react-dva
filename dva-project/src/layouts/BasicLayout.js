@@ -3,7 +3,7 @@ import React from 'react';
 import classNames from 'classnames';
 import QueueAnim from 'rc-queue-anim';
 import { ContainerQuery } from 'react-container-query';
-import { Layout, Menu, Icon, Card, Affix, Button } from 'antd';
+import { Layout, Menu, Icon, Card, Affix, Button, Tooltip, Breadcrumb, Input } from 'antd';
 import { Link, Switch, Route } from 'dva/router';
 import styles from './BasicLayout.less';
 
@@ -14,6 +14,11 @@ const SubMenu = Menu.SubMenu;
 // function handleClick(e) {
 //   console.log('click', e);
 // }
+
+
+const text = <span>返回顶部</span>;
+const Search = Input.Search;
+// const { Meta } = Card;
 
 const query = {
   'screen-xs': {
@@ -113,20 +118,55 @@ class BasicLayout extends React.Component {
             Header
           </Header>
           <Content id="affix">
-            <Card style={{ minHeight: '900px' }}>
-              <Switch>
-                <Route path="/home" render={() => <h1>home</h1>} />
-                <Route path="/github" render={() => <h1>github</h1>} />
-              </Switch>
-              <QueueAnim delay={300}>
-                <div className={styles.content_Card} key="a">依次进场</div>
-                <div className={styles.content_Card} key="b">依次进场</div>
-                <div className={styles.content_Card} key="c">依次进场</div>
-                <div className={styles.content_Card} key="d">依次进场</div>
-              </QueueAnim>
-            Card
+            <Card className={styles.card_head}>
+              <Breadcrumb>
+                <Breadcrumb.Item href="">
+                  <Icon type="home" />
+                  首页1
+                </Breadcrumb.Item>
+                <Breadcrumb.Item href="">
+                  <Icon type="home" />
+                  首页2
+                </Breadcrumb.Item>
+                <Breadcrumb.Item>
+                  <Icon type="home" />
+                  首页3
+                </Breadcrumb.Item>
+              </Breadcrumb>
+              <div style={{ textAlign: 'center' }}>
+                <Search
+                  placeholder="请输入搜索内容"
+                  style={{ width: 522 }}
+                  size="large"
+                />
+              </div>
+              <Menu
+                onClick={this.handleClick}
+                selectedKeys={[this.state.current]}
+                mode="horizontal"
+                style={{ marginTop: 20 }}
+              >
+                <Menu.Item>
+                  <Icon />内容1
+                </Menu.Item>
+                <Menu.Item>
+                  <Icon />内容2
+                </Menu.Item>
+                <Menu.Item>
+                  <Icon />内容3
+                </Menu.Item>
+              </Menu>
             </Card>
-          content
+            <Switch>
+              <Route path="/home" render={() => <h1>home</h1>} />
+              <Route path="/github" render={() => <h1>github</h1>} />
+            </Switch>
+            <QueueAnim delay={300}>
+              <div key="a">依次进场</div>
+              <div key="b">依次进场</div>
+              <div key="c">依次进场</div>
+              <div key="d">依次进场</div>
+            </QueueAnim>
           </Content>
           <Footer>
             footer
@@ -135,9 +175,11 @@ class BasicLayout extends React.Component {
             </div>
           </Footer>
           <Affix offsetBottom={10}>
-            <Button type="primary">
-            TOP
-            </Button>
+            <Tooltip placemetn="top" title={text}>
+              <Button type="primary">
+              TOP
+              </Button>
+            </Tooltip>
           </Affix>
         </Layout>
       </Layout>
