@@ -14,14 +14,6 @@ export default({
     record: 0,
     current: 0,
   },
-
-  // effects: {
-  //   *add(action, { call, put }) {
-  //     yield call(delay, 1000);
-  //     yield put({ type: 'add' });
-  //   },
-  // },
-
   reducers: {
     add(state) {
       const newCurrent = state.current + 1;

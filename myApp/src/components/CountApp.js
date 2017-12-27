@@ -6,6 +6,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 const CountApp = ({ count, dispatch }) => {
+  console.log(count);
   return (
     <div>
       <div>Higest Record: {count.record}</div>
