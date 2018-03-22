@@ -23,6 +23,13 @@ export default {
           page: parseInt(page, 10),
         },
       });
+      console.log('list>>>>>>>>', data);
+    },
+    *remove({ payload: id }, { call, put, select }) {
+      yield call(usersService.remove, id);
+      const page = yield select(state => state.users.page);
+      console.log('rmPage?>>>>>>>>>', page);
+      yield put({ type: 'fetch', payload: page });
     },
   },
   subscriptions: {
@@ -30,6 +37,7 @@ export default {
       return history.listen(({ pathname, query }) => {
         if (pathname === '/users') {
           dispatch({ type: 'fetch', payload: query });
+          console.log('query>>>>>>>>>', query);
         }
       });
     },
